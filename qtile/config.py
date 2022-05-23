@@ -87,7 +87,7 @@ keys = [
 
 groups= [
     Group("1",
-          label="",
+          label="",
           spawn='brave',
           matches=[Match(wm_class=["firefox"]),
                    Match(wm_class=["Vivaldi-stable"]),
@@ -97,62 +97,27 @@ groups= [
           ),
 
     Group("2",
-          label="",
+          label="",
           matches=[Match(wm_class=["Zathura"]),
                    Match(wm_class=["Evince"]),
                    ],
           ),
 
     Group("3",
-          label="",
+          label="",
           matches=[Match(wm_class=["st-256color"]),
                    # Match(wm_class=["kitty"]),
                    ],
           ),
 
     Group("4",
-          label="",
+          label="",
           matches=[Match(wm_class=["discord"]),
                    ],
           ),
 
-    Group("5",
-          label="",
-          layout="max",
-          matches=[Match(wm_class=["Mplayer"]),
-                   ],
-          ),
-
-    Group("6",
-          label="",
-          matches=[Match(wm_class=["pcmanfm"]),
-                   ],
-          ),
-#
-    Group("7",
-          label="f111",
-          layout="bsp",
-          matches=[Match(wm_class=["pavucontrol"]),
-                   ],
-          ),
-
-    Group("8",
-          label="",
-          matches=[Match(wm_class=["emacs"]),
-                   ],
-          ),
-
-    Group("9",
-          label="",
-          layout="max",
-          matches=[Match(wm_class=["zoom"]),
-                   Match(wm_class=["Microsoft Teams - Preview"]),
-                   Match(wm_class=["spotify"])
-                   ],
-          ),
-
     Group("0",
-          label=""),
+          label=""),
 ]
 
 for i in groups:
@@ -201,48 +166,31 @@ widget_defaults = dict(
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-colors = [["#000000", "#000000"],           ["#1c1f24", "#1c1f24"],           ["#dfdfdf", "#dfdfdf"],           ["#ff6c6b", "#ff6c6b"],           ["#98be65", "#98be65"],           ["#da8548", "#da8548"],           ["#51afef", "#51afef"],           ["#c678dd", "#c678dd"],           ["#46d9ff", "#46d9ff"],           ["#a9a1e1", "#a9a1e1"]]
+
+col = {'active':"#009FFD", 'inactive': "#7A6563"}
+
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(
-                padding=5,
-                    ),
-                #widget.GroupBox(),
                 widget.GroupBox(
-                font="FontAwesome",
-                fontsize=10,
-                active=colors[6],
-                inactive=colors[1],
-                rounded=True,
-                highlight_color=colors[0],
-                highlight_method="line",
-                this_current_screen_border=colors[0],
-                block_highlight_text_color=colors[4],
-                blockwidth=2,
-                margin_y=3,
-                ),
 
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
-                # widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
-                widget.CheckUpdates(display_format='{updates}'),
-                widget.TextBox(text = '',font = "Ubuntu Mono",foreground = colors[4],padding = 0,fontsize = 57)
+                    center_aligned = True,
+                    background = "#010206",
+                    font = "FontAwesome",
+                    fontsize = 13,
+                    padding = 5,
+                    highlight_method = 'line',
+                    highlight_color = ['#F1EDEE', '#F1EDEE'],
+                    active = '#F1EDEE',
+                    inactive = col['inactive'],
+                    hide_unused = False,
+                    block_highlight_text_color = col['active']
+
+                    )
             ],
-            24,
+            28,
+            background = '#010206'
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
