@@ -186,9 +186,20 @@ screens = [
                     active = '#F1EDEE',
                     inactive = col['inactive'],
                     hide_unused = False,
+                    margin_x = 10,
                     block_highlight_text_color = col['active']
 
-                    )
+                    ),
+
+                widget.Spacer(),
+                widget.Clock(
+                    background = '#44BBA4',
+                    padding = 10
+                    ),
+
+                widget.Spacer(),
+                widget.Volume()
+
             ],
             28,
             background = '#010206'
