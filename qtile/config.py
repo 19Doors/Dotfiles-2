@@ -145,7 +145,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(margin=[8,8,8,8]),
+    layout.Columns(margin=[4,4,4,4]),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -155,7 +155,7 @@ layouts = [
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
-    # layout.TreeTab(),
+    layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
@@ -167,7 +167,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-col = {'active':"#009FFD", 'inactive': "#7A6563"}
+col = {'active':"#010206", 'inactive': "#7A6563"}
 
 screens = [
     Screen(
@@ -181,6 +181,7 @@ screens = [
                     fontsize = 13,
                     padding = 5,
                     highlight_method = 'line',
+                    this_current_screen_border = '#F1EDEE',
                     highlight_color = ['#F1EDEE', '#F1EDEE'],
                     active = '#F1EDEE',
                     inactive = col['inactive'],
