@@ -88,32 +88,18 @@ keys = [
 groups= [
     Group("1",
           label="",
-          spawn='brave',
-          matches=[Match(wm_class=["firefox"]),
-                   Match(wm_class=["Vivaldi-stable"]),
-                   Match(wm_class=["Icecat"]),
-                   Match(wm_class=["Brave-browser"]),
-                   ],
           ),
 
     Group("2",
-          label="",
-          matches=[Match(wm_class=["Zathura"]),
-                   Match(wm_class=["Evince"]),
-                   ],
+          label="",
           ),
 
     Group("3",
           label="",
-          matches=[Match(wm_class=["st-256color"]),
-                   # Match(wm_class=["kitty"]),
-                   ],
           ),
 
     Group("4",
           label="",
-          matches=[Match(wm_class=["discord"]),
-                   ],
           ),
 
     Group("0",
@@ -144,8 +130,17 @@ for i in groups:
         ]
     )
 
+colors = ['#010206', '#F1EDEE', '#7A6563', '#36C9C6', '#56667A']
+
 layouts = [
-    layout.Columns(margin=[4,4,4,4]),
+    layout.Columns(
+        margin=[6,6,6,6],
+        border_focus = '#F1EDEE',
+        border_width = 2,
+        border_on_single = True,
+
+        border_normal = colors[4]
+        ),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -161,9 +156,9 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="sans",
-    fontsize=12,
-    padding=3,
+        font = "Iosevka Nerd Font",
+        fontsize = 14,
+        padding = 3
 )
 extension_defaults = widget_defaults.copy()
 
@@ -177,7 +172,7 @@ screens = [
 
                     center_aligned = True,
                     background = "#010206",
-                    font = "FontAwesome",
+                    font = "NotoSans Nerd Font",
                     fontsize = 13,
                     padding = 5,
                     highlight_method = 'line',
@@ -192,13 +187,33 @@ screens = [
                     ),
 
                 widget.Spacer(),
+
                 widget.Clock(
-                    background = '#44BBA4',
-                    padding = 10
+                    fontsize = 15
                     ),
 
                 widget.Spacer(),
-                widget.Volume()
+                
+                widget.CurrentLayout(
+                    background = colors[1],
+                    foreground = colors[0],
+                    padding = 10,
+                    font = "Iosevka Nerd Font",
+                    fontsize = 14
+                    ),
+                
+                widget.Net(
+                    font = 'Iosevka Nerd Font',
+                    fontsize = 13,
+                    padding = 12,
+                    background = '#CE6A85',
+                    format = '{down}',
+                    prefix = 'M'
+                    ),
+
+                # widget.Cmus(),
+                #                widget.Mpris2()
+
 
             ],
             28,
@@ -215,11 +230,6 @@ mouse = [
     Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
-
-@hook.subscribe.startup_once
-def start_once():
-    home = os.path.expanduser('~') 
-    subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
