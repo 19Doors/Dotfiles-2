@@ -27,7 +27,7 @@ import subprocess
 import os
 
 from libqtile import bar, layout, widget, hook, extension
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, ScratchPad, Screen, DropDown
 from libqtile.lazy import lazy
 
 
@@ -78,14 +78,17 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restarts"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.run_extension(extension.DmenuRun()), desc="Spawn a command using a prompt widget"),
+    Key([mod, "control"], "p", lazy.spawn("rofi -show run")),
 ]
 
 #groups = [Group(i) for i in "123456789"]
 
 groups= [
+
+
     Group("1",
           label="",
           ),
@@ -104,7 +107,12 @@ groups= [
 
     Group("0",
           label=""),
+
 ]
+
+#keys.extend([ 
+#    Key([], 'F11', lazy.group['scratchpad'].dropdown_toggle('nnn'))
+#    ])
 
 for i in groups:
     keys.extend(
@@ -130,6 +138,21 @@ for i in groups:
         ]
     )
 
+groups.append( ScratchPad('scratchpad', [ 
+        DropDown('nnn', 'termite -e nnn', width=0.5, height = 0.5, x=0.25, y=0.2),
+        DropDown('alsa', 'termite -e alsamixer', width=0.5, height = 0.5, x=0.25, y=0.2),
+        DropDown('terminal', 'termite', width=0.5, height = 0.5, x=0.25, y=0.2),
+    ]) )
+
+scratchkeys = [ 
+        Key(['control'], '1', lazy.spawn("rofi-pass")),
+        Key(['control'], '2', lazy.group['scratchpad'].dropdown_toggle('alsa')),
+        Key(['control'], '3', lazy.group['scratchpad'].dropdown_toggle('nnn')),
+        Key(['control'], '0', lazy.group['scratchpad'].dropdown_toggle('terminal')),
+        ]
+
+keys.extend(scratchkeys)
+
 colors = ['#010206', '#F1EDEE', '#7A6563', '#36C9C6', '#56667A']
 
 layouts = [
@@ -145,6 +168,11 @@ layouts = [
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     layout.Bsp(),
+    layout.Floating(
+        border_focus = '#F1EDEE',
+        border_normal = colors[4],
+        border_width = 2,
+        ),
     layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),
@@ -192,6 +220,7 @@ screens = [
                     fontsize = 15
                     ),
 
+
                 widget.Spacer(),
                 
                 widget.CurrentLayout(
@@ -202,6 +231,21 @@ screens = [
                     fontsize = 14
                     ),
                 
+                widget.Mpris2(
+                    name = 'spotify',
+                    objname = 'org.mpris.MediaPlayer2.spotify',
+                    display_metadata = ['xesam:title'],
+                    stop_pause_text = 'Pauseddd',
+                    background = colors[1],
+                    foreground = colors[0],
+                    
+                    font = "Iosevka Nerd Font",
+                    fontsize = 15,
+                    padding = 3,
+                    max_chars = 15
+                    ),
+
+
                 widget.Net(
                     font = 'Iosevka Nerd Font',
                     fontsize = 13,
@@ -239,14 +283,21 @@ cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
-        *layout.Floating.default_float_rules,
+#        *layout.Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
-        Match(title="pinentry"),  # GPG key password entry
-    ]
+        Match(title="pinentry"), # GPG key password entry
+    ],
+
+
+    border_focus = '#F1EDEE',
+    border_normal = colors[4],
+    border_width = 2
+
+
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
