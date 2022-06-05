@@ -25,6 +25,7 @@
 # SOFTWARE.
 import subprocess
 import os
+from datetime import datetime
 
 from libqtile import bar, layout, widget, hook, extension
 from libqtile.config import Click, Drag, Group, Key, Match, ScratchPad, Screen, DropDown
@@ -34,6 +35,18 @@ from libqtile.lazy import lazy
 
 mod = "mod4"
 terminal = "termite" 
+
+
+#def ok():
+#    now = datetime.now()
+#    current_time = now.strftime("%d|%b|%Y|%H:%M:%S")
+#    lazy.spawn("maim Pictures/Screenshots/"+current_time+".png")
+
+# For my Cursor
+@hook.subscribe.startup
+def runner():
+    import subprocess
+    subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
 
 keys = [
     
@@ -80,8 +93,11 @@ keys = [
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.restart(), desc="Restarts"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.run_extension(extension.DmenuRun()), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawn("dmenu_run -h 28"), desc="Spawn a command using a prompt widget"),
     Key([mod, "control"], "p", lazy.spawn("rofi -show run")),
+    Key([mod], "o", lazy.spawn("maim Pictures/Screenshots/ok.png"))
+
+
 ]
 
 #groups = [Group(i) for i in "123456789"]
@@ -139,7 +155,7 @@ for i in groups:
     )
 
 groups.append( ScratchPad('scratchpad', [ 
-        DropDown('nnn', 'termite -e nnn', width=0.5, height = 0.5, x=0.25, y=0.2),
+        DropDown('ranger', 'termite -e ranger', width=0.5, height = 0.5, x=0.25, y=0.2),
         DropDown('alsa', 'termite -e alsamixer', width=0.5, height = 0.5, x=0.25, y=0.2),
         DropDown('terminal', 'termite', width=0.5, height = 0.5, x=0.25, y=0.2),
     ]) )
@@ -147,7 +163,7 @@ groups.append( ScratchPad('scratchpad', [
 scratchkeys = [ 
         Key(['control'], '1', lazy.spawn("rofi-pass")),
         Key(['control'], '2', lazy.group['scratchpad'].dropdown_toggle('alsa')),
-        Key(['control'], '3', lazy.group['scratchpad'].dropdown_toggle('nnn')),
+        Key(['control'], '3', lazy.group['scratchpad'].dropdown_toggle('ranger')),
         Key(['control'], '0', lazy.group['scratchpad'].dropdown_toggle('terminal')),
         ]
 
@@ -216,10 +232,16 @@ screens = [
 
                 widget.Spacer(),
 
-                widget.Clock(
-                    fontsize = 15
+                widget.Mpris2(
+                    name = 'spotify',
+                    objname = 'org.mpris.MediaPlayer2.spotify',
+                    display_metadata = ['xesam:title'],
+                    foreground = colors[1],
+                    
+                    font = "Iosevka Nerd Font",
+                    fontsize = 16,
+                    padding = 3,
                     ),
-
 
                 widget.Spacer(),
                 
@@ -231,20 +253,6 @@ screens = [
                     fontsize = 14
                     ),
                 
-                widget.Mpris2(
-                    name = 'spotify',
-                    objname = 'org.mpris.MediaPlayer2.spotify',
-                    display_metadata = ['xesam:title'],
-                    stop_pause_text = 'Pauseddd',
-                    background = colors[1],
-                    foreground = colors[0],
-                    
-                    font = "Iosevka Nerd Font",
-                    fontsize = 15,
-                    padding = 3,
-                    max_chars = 15
-                    ),
-
 
                 widget.Net(
                     font = 'Iosevka Nerd Font',
@@ -254,6 +262,13 @@ screens = [
                     format = '{down}',
                     prefix = 'M'
                     ),
+
+                widget.Clock(
+                        fontsize = 14,
+                        background = '#5FA8D3',
+                        padding = 12,
+                        format = '  %d %b,%H:%M'
+                        )
 
                 # widget.Cmus(),
                 #                widget.Mpris2()
