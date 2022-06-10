@@ -1,9 +1,14 @@
 #!/bin/sh
 
-sudo pacman -S python2 python3 python-pip
-pip install dbus-next psutil
+currentp=$(pwd)
 
-sudo pacman -S feh picom dunst alsa-utils ranger
+#sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../ && rm -R yay
+
+#sudo pacman -S python2 python3 python-pip
+#pip install dbus-next psutil
+
+#sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 #yay -S nerd-fonts-complete ttf-font-awesome 
 
 #mkdir -p $HOME/.config
@@ -20,8 +25,16 @@ sudo make install
 cd ../surf
 sudo make install
 
-echo "###---INSTALLATION DONE---###"
 sleep 2
 
-cd ../Scripts
+cd $currentp
 
+echo "###---INSTALLING DISPLAY MANAGER(LY)---###"
+sleep 2
+
+yay -S ly
+
+sudo systemctl enable ly.service
+sudo systemctl disable getty@tty2.service
+
+echo "###---INSTALLATION DONE---###"
