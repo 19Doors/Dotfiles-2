@@ -2,19 +2,19 @@
 
 currentp=$(pwd)
 
-#sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../ && rm -R yay
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../ && rm -R yay
 
-#sudo pacman -S python2 python3 python-pip
-#pip install dbus-next psutil
+sudo pacman -S python2 python3 python-pip
+pip install dbus-next psutil
 
-#sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#yay -S nerd-fonts-complete ttf-font-awesome 
+sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+yay -S nerd-fonts-complete ttf-font-awesome 
 
-#mkdir -p $HOME/.config
-#cp -r ../.config/* $HOME/.config/
-#cp -r ../.xinitrc $HOME/.xinitrc
-#cp ../wallpaper.jpg $HOME/.config/qtile 
+mkdir -p $HOME/.config
+cp -r ../.config/* $HOME/.config/
+cp -r ../.xinitrc $HOME/.xinitrc
+cp ../wallpaper.jpg $HOME/.config/qtile 
 
 echo "###---INSTALLING DMENU AND SURF---###"
 sleep 2
