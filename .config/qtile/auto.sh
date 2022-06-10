@@ -1,5 +1,6 @@
 #!/bin/sh
 
-feh --bg-fill ~/Dotfiles-2/wallpaper.jpg
+timedatectl set-ntp true &
+feh --bg-fill wallpaper.jpg &
 dunst -c ~/.config/dunst/dunstrc &
 picom &

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+sudo pacman -S python2 python3 python-pip
+pip install dbus-next psutil
+
+sudo pacman -S feh picom dunst alsa-utils ranger
+#yay -S nerd-fonts-complete ttf-font-awesome 
+
+#mkdir -p $HOME/.config
+#cp -r ../.config/* $HOME/.config/
+#cp -r ../.xinitrc $HOME/.xinitrc
+#cp ../wallpaper.jpg $HOME/.config/qtile 
+
+echo "###---INSTALLING DMENU AND SURF---###"
+sleep 2
+
+cd ../dmenu
+sudo make install
+
+cd ../surf
+sudo make install
+
+echo "###---INSTALLATION DONE---###"
+sleep 2
+
+cd ../Scripts
+
