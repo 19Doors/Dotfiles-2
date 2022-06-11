@@ -9,8 +9,8 @@ sudo rm -R yay
 sudo pacman -S python2 python3 python-pip
 pip install dbus-next psutil
 
-sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh termite
-yay -S ttf-iosevka-nerd nerd-fonts-mononoki ttf-font-awesome
+sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh xorg xorg-xinit
+yay -S ttf-iosevka-nerd nerd-fonts-mononoki ttf-font-awesome termite
 
 mkdir -p $HOME/.config
 cp -r ../.config/* $HOME/.config/
