@@ -3,14 +3,14 @@
 currentp=$(pwd)
 
 
-yay || sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../ && rm -R yay
+yay || sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../
+sudo rm -R yay
 
 sudo pacman -S python2 python3 python-pip
 pip install dbus-next psutil
 
-sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-yay -S nerd-fonts-complete ttf-font-awesome 
+sudo pacman -S make qtile feh picom dunst alsa-utils ranger zsh termite
+yay -S ttf-iosevka-nerd nerd-fonts-mononoki ttf-font-awesome
 
 mkdir -p $HOME/.config
 cp -r ../.config/* $HOME/.config/
@@ -38,4 +38,16 @@ yay -S ly
 sudo systemctl enable ly.service
 sudo systemctl disable getty@tty2.service
 
+echo "###--INSTALLING CURSOR THEME--###"
+sleep 2
+mkdir -p $HOME/.local/share/icons
+mkdir -p $HOME/.icons
+mkdir -p $HOME/.icons/default
+mkdir -p $HOME/.config/gtk-3.0
+
+cp -r Simp1e $HOME/.local/share/icons
+cp index.theme $HOME/.icons/default/index.theme
+cp settings.ini $HOME/.config/gtk-3.0/settings.ini
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "###---INSTALLATION DONE---###"
