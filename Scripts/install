@@ -2,7 +2,8 @@
 
 currentp=$(pwd)
 
-sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../ && rm -R yay
+
+yay || sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../ && rm -R yay
 
 sudo pacman -S python2 python3 python-pip
 pip install dbus-next psutil

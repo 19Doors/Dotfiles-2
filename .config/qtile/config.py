@@ -35,6 +35,7 @@ from libqtile.lazy import lazy
 
 mod = "mod4"
 terminal = "termite" 
+browser = "brave"
 
 
 #def ok():
@@ -45,14 +46,19 @@ terminal = "termite"
 # For my Cursor
 @hook.subscribe.startup
 def runner():
-    import subprocess
     subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
+
+@hook.subscribe.startup_once
+def start_once():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/auto.sh'])
+ 
 
 keys = [
     
     # =====APPLICATIONS======
         
-    Key([mod], "w",         lazy.spawn("firefox")),
+    Key([mod], "w",         lazy.spawn(browser)),
     Key([mod, "shift"], "Return",    lazy.spawn(terminal)),
 
 
