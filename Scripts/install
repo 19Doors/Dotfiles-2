@@ -2,9 +2,10 @@
 
 currentp=$(pwd)
 
-
-yay || sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../
-sudo rm -R yay
+if [ ! -f /bin/yay ]; then
+    sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ../
+    sudo rm -R yay
+fi
 
 sudo pacman -S python2 python3 python-pip
 pip install dbus-next psutil
@@ -49,5 +50,8 @@ cp -r Simp1e $HOME/.local/share/icons
 cp index.theme $HOME/.icons/default/index.theme
 cp settings.ini $HOME/.config/gtk-3.0/settings.ini
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "###---INSTALLATION DONE---###"
+sleep 1 
+echo "###---NOW LAST STEP---###"
+sleep 1
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
