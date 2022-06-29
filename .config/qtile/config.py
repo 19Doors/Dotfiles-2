@@ -162,15 +162,16 @@ for i in groups:
 
 groups.append( ScratchPad('scratchpad', [ 
         DropDown('ranger', 'termite -e ranger', width=0.5, height = 0.5, x=0.25, y=0.2),
+        DropDown('removables', 'termite --exec="ranger /run/media/sakaar"', width=0.5, height = 0.5, x=0.25, y=0.2),
         DropDown('alsa', 'termite -e alsamixer', width=0.5, height = 0.5, x=0.25, y=0.2),
         DropDown('terminal', 'termite', width=0.5, height = 0.5, x=0.25, y=0.2),
     ]) )
 
 scratchkeys = [ 
-        Key(['control'], '1', lazy.spawn("rofi-pass")),
+        Key(['control'], '1', lazy.group['scratchpad'].dropdown_toggle('terminal')),
         Key(['control'], '2', lazy.group['scratchpad'].dropdown_toggle('alsa')),
         Key(['control'], '3', lazy.group['scratchpad'].dropdown_toggle('ranger')),
-        Key(['control'], '0', lazy.group['scratchpad'].dropdown_toggle('terminal')),
+        Key(['control'], '0', lazy.group['scratchpad'].dropdown_toggle('removables')),
         ]
 
 keys.extend(scratchkeys)
